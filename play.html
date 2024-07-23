@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitcoin Address from Private Key</title>
+    <title>Web Puzzle Bitcoin<</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -33,19 +33,19 @@
             // Carteira 20
             // let privateKeyInt = generateRandomNumber(0xc0000,0xe0000);
             // Carteira 65
-            // let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000);
+            let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000);
             // Carteira 66
-            let privateKeyInt = generateRandomNumber(0x20000000000000000,0x3ffffffffffffffff);
-            console.log('chave de inicio: ', privateKeyInt.toString(16));
+            // let privateKeyInt = generateRandomNumber(0x20000000000000000,0x3ffffffffffffffff);
+            console.log('primeira chave: ', privateKeyInt.toString(16));
             for (i=0;i<50000;i++){
                 const address = generateAddress(privateKeyInt.toString(16));
                 // console.log(privateKeyInt.toString(16), address)
                 // Carteira 20
                 //if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
                 // Carteira 65
-                //if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
+                if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
                 // Carteira 66
-                if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
+                //if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
                     log(`Resultado: Deu certo!!!<br>`)
                     log(`Chave premiada: ${privateKeyInt.toString(16)}`)
                     document.getElementById("console").style.animation = 'scale-in 1s forwards';
@@ -141,7 +141,7 @@
 </head>
 <body>
     <header>
-        <h1>Web Loteria Puzzle</h1>
+        <h1>Web Puzzle</h1>
     </header>
     <section>
         <div class="container">
@@ -166,7 +166,7 @@
         </div>
     </section>
     <footer>
-        <p>&copy; Investidor Internacional</p>
+        <p>&copy; Dimitri Matheus</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/elliptic@6.5.4/lib/elliptic.js"></script>
