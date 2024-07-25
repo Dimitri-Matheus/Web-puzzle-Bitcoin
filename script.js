@@ -13,10 +13,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function changeTheme () {
             currentTheme = currentTheme === 'light' ? 'dark' : 'light'
+
+            const body = document.querySelector('body')
+            body.style.transition = 'background-color .5s, color .5s linear'
+            body.style.transition = ''
+            void body.offsetWidth
+            body.style.transition = 'background-color .5s, color .5s linear'
+            
             themeStylesheetLink.setAttribute('href', `css/${currentTheme}.css`)
             localStorage.setItem('theme', currentTheme)
             updateTheme(currentTheme)
             console.log(`O estilo atual é ${currentTheme}`)
+            console.log(body)
         }
 
         function updateTheme(theme) {
@@ -38,3 +46,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     initThemeLoader()
 })
+
+function navigate(page) {
+    const urls = {
+        play: 'play.html',
+        options: 'options.html',
+        index: 'index.html',
+    }
+
+    if (page in urls) {
+        window.location.href = urls[page]
+    } else {
+        window.alert('Em breve! Como a maioria das funções deste site skksksks')
+    }
+}

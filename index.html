@@ -7,21 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" id="themeStylesheetLink" href="css/light.css">
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script>
-        function play() {
-            window.location.href = 'play.html'
-        }
-
-        function options() {
-            window.location.href = 'options.html'
-        }
-
-        function restart() {
-            window.alert('Em breve! Como a maioria das funções deste site kskskksk')
-        }
-
-    </script>
-    <script src="theme.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -29,9 +15,9 @@
     </header>
     <section>
         <div class="container">
-            <button class="button" onclick="play()">Jogar</button>
-            <button class="button option" onclick="options()">Opções</button>
-            <button class="button restart" onclick="restart()">Reiniciar</button>
+            <button class="button" onclick="navigate('play')">Jogar</button>
+            <button class="button option" onclick="navigate('options')">Opções</button>
+            <button class="button restart" onclick="navigate('restart')">Reiniciar</button>
             <script>
                 var typed = new Typed(".auto-type", {
                 strings: ["Code", "Bitcoin", "Crypto"],

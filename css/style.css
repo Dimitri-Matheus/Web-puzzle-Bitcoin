@@ -83,7 +83,6 @@ span {
     margin: 0 0 30px;
     user-select: text;
 }
-
 .button {
     background-color: #04AA6D;
     color: var(--primary);
