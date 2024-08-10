@@ -16,8 +16,13 @@
     <section>
         <div class="container">
             <p>As opções são somente visuais por enquanto <a href="https://github.com/Dimitri-Matheus" target="_blank"><i class="fa-solid fa-heart"></i></a></p>
-            <button id="theme" class="button theme"></button>
-            <button id="button egg" class="button egg" onclick="">Easter egg</button>
+            <ul id="menu">
+                <li>Modo escuro: <input type="checkbox" id="themeToggle"></li>
+                <li>Automático: <input type="checkbox"></li>
+                <li>Perfomance: <input type="checkbox"></li>
+                <li>Vibração: <input type="checkbox"></li>
+            </ul>
+            <span class="auto-type"></span>
             <svg onclick="navigate('index')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32">
                 <path stroke-linecap="round" d="M27.047 25.85c0-8.386-7.127-13.85-15.918-13.85H6.667v0"/>
                 <path stroke-linecap="round" d="M12 5.333 5.333 12 12 18.667"/>

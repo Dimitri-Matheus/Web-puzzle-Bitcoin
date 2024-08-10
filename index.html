@@ -17,7 +17,8 @@
         <div class="container">
             <button class="button" onclick="navigate('play')">Jogar</button>
             <button class="button option" onclick="navigate('options')">Opções</button>
-            <button class="button restart" onclick="navigate('restart')">Reiniciar</button>
+            <button class="button restart" popovertarget="popup">Reiniciar</button>
+            <div id="popup" popover>ERROR: 4xe1a038b05702b0000</div>
             <script>
                 var typed = new Typed(".auto-type", {
                 strings: ["Code", "Bitcoin", "Crypto"],

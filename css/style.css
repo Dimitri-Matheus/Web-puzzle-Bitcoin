@@ -49,13 +49,83 @@ a {
 }
 
 a:hover {
-	color: #7b2cbf;
+	color: #D05340;
     transition: 0.5s;
 }
 
 span {
     color: var(--primary);
     user-select: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-inline: 10%;
+    margin: 0 30px 0 30px;
+}
+
+input {
+    -webkit-appearance: none;
+    position: relative;
+    width: 50px;
+    border-radius: 16px;
+    border: 1px solid #000;
+    transition: background .3s;
+    border-color: #000;
+    outline: none;
+    cursor: pointer;
+}
+
+input::after {
+    content:  '';
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    height: 1.25rem;
+    width: 1.25rem;
+    background-color: #fff;
+    transition: left .3s;
+}
+
+input:checked {
+    background-color: #000;
+    border-color: #E3DAC9;
+}
+
+input:checked::after {
+    left: 70%;
+}
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 22px;
+    width: 400px;
+    height: 256px;
+    background-color: #5492B9;
+    border: 1px solid var(--border);
+    box-shadow: 0px 2px 0px var(--border);
+    border-radius: 8px;
+    margin: 30px 0 30px;
+    user-select: none;
+}
+
+#popup {
+    position: absolute;
+    background: var(--text);
+    color: var(--background);
+    top: 30px;
+    left: 0;
+    padding: 5px;
+    margin: 0 auto;
+    border-radius: 5px;
+    border: none;
+    animation: scale-in .25s ease-in-out;
 }
 
 .container {
@@ -115,16 +185,6 @@ span {
     transition: 0.5s;
 }
 
-.button.theme {
-    background-color: #8b8787;
-    transition: 0.5s;
-}
-
-.button.egg {
-    background-color: #FB6F92;
-    transition: 0.5s;
-}
-
 .button:hover {
     background-color: #41b68b;
     transition: 0.5s;
@@ -137,16 +197,6 @@ span {
 
 .button.restart:hover {
     background-color: #cc6668;
-    transition: 0.5s;
-}
-
-.button.theme:hover {
-    background-color: #979595;
-    transition: 0.5s;
-}
-
-.button.egg:hover {
-    background-color: #f085a0;
     transition: 0.5s;
 }
 
