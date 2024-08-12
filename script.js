@@ -1,7 +1,7 @@
 // start puzzle
 async function start() {
     clearLog();
-    await disable_button();
+    disable_button();
     setTimeout(loop, 100);
 }
 

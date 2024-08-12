@@ -70,10 +70,10 @@ input {
     -webkit-appearance: none;
     position: relative;
     width: 50px;
+    height: 0px;
     border-radius: 16px;
     border: 1px solid #000;
     transition: background .3s;
-    border-color: #000;
     outline: none;
     cursor: pointer;
 }
@@ -92,7 +92,6 @@ input::after {
 }
 
 input:checked {
-    background-color: #000;
     border-color: #E3DAC9;
 }
 
@@ -298,5 +297,9 @@ footer {
     p {
         text-align: center;
         padding: 0 20px;
+    }
+
+    #menu {
+        width: 330px;
     }
 }
