@@ -116,8 +116,8 @@ input:checked::after {
 
 #popup {
     position: absolute;
-    background: var(--text);
-    color: var(--background);
+    background: #D05340;
+    color: var(--border);
     top: 30px;
     left: 0;
     padding: 5px;
