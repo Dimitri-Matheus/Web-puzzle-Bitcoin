@@ -114,6 +114,43 @@ input:checked::after {
     user-select: none;
 }
 
+details {
+    color: var(--primary);
+    width: 252px;
+    margin: 10px 0 5px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    box-shadow: 0px 2px 0px var(--border);
+}
+
+#d1 {
+    background-color: #C64D4D;
+}
+
+#d2 {
+    background-color: #C64D4D;
+}
+
+#d3 {
+    background-color: #C64D4D;
+}
+
+#d4 {
+    background-color: #C64D4D;
+}
+
+summary {
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease-in;
+}
+
+details[open] summary{
+    margin-bottom: 15px;
+    transition: 0.3s ease-out;
+}
+ 
 #popup {
     position: absolute;
     background: #D05340;
@@ -152,6 +189,7 @@ input:checked::after {
     margin: 0 0 30px;
     user-select: text;
 }
+
 .button {
     background-color: #04AA6D;
     color: var(--primary);
@@ -184,6 +222,11 @@ input:checked::after {
     transition: 0.5s;
 }
 
+.button.help {
+    background-color: #DA5555;
+    transition: 0.5s;
+}
+
 .button:hover {
     background-color: #41b68b;
     transition: 0.5s;
@@ -196,6 +239,11 @@ input:checked::after {
 
 .button.restart:hover {
     background-color: #cc6668;
+    transition: 0.5s;
+}
+
+.button.help:hover {
+    background-color: #ca5c5e;
     transition: 0.5s;
 }
 

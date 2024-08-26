@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Puzzle Bitcoin</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" id="themeStylesheetLink" href="css/light.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Web Puzzle</h1>
+    </header>
+    <section>
+        <div class="container">
+            <p>Escolha o assunto desejado para saber mais!</p>
+            <details id="d1">
+                <summary>Como funcionar?</summary>
+                O puzzle gera 10.000 mil endereços de bitcoins de formas completamente aleatórias para tentar encontrar uma combinação de alguma carteira puzzle.<br>
+                <br>Se essa verificação for bem sucedida irá te mostrar o endereço onde encontrará os bitcoins guardados.
+            </details>
+            <details id="d2">
+                <summary>Como converter para wif?</summary>
+                Após ter conseguido o endereço gerado pelo puzzle, você precisará de um conversor WIF (estou trabalhando para não precisar no futuro)<br>
+                <br>Basta inserir o endereço gerado no conversor para obter o endereço completo.
+            </details>
+            <details id="d3">
+                <summary>Como resgatar bitcoins?</summary>
+                1. Obtenha uma carteira offline como a Electrum.<br>
+                <br>2. Acesse a carteira puzzle com o endereço já convertido em formato wif e transfira para sua carteira existente.
+            </details>
+            <details id="d4">
+                <summary>Dúvidas ou dívidas?</summary>
+                Este código não irá roubar os teus bitcoins (apesar de ser MUITO DIFÍCIL DE ENCONTRAR BITCOINS) portanto fique tranquilo!<br>
+                <br>Se estiver com mais alguma dúvida me chame no GITHUB que está no coração anexado na página de configurações!
+            </details>
+            <span class="auto-type"></span>
+            <svg onclick="navigate('play')" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 32 32">
+                <path stroke-linecap="round" d="M27.047 25.85c0-8.386-7.127-13.85-15.918-13.85H6.667v0"/>
+                <path stroke-linecap="round" d="M12 5.333 5.333 12 12 18.667"/>
+            </svg>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; Dimitri Matheus</p>
+    </footer>
+</body>
+</html>

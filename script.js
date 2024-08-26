@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function disable_button(){
         document.getElementById("start").setAttribute('disabled', '')
+        document.getElementById("help").setAttribute('disabled', '')
         document.getElementById("console").style.backgroundColor = ''
         document.getElementById("console").style.animation = ''
     }
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("console").style.animation = 'scale-in 1s forwards'
         document.getElementById("console").style.backgroundColor = '#E63946'
         document.getElementById("start").removeAttribute('disabled')
+        document.getElementById("help").removeAttribute('disabled')
         document.querySelector("span").style.display = 'none'
         console.timeEnd('Tempo total de execução')
     }
@@ -197,12 +199,11 @@ function navigate(page) {
     const urls = {
         play: 'play.html',
         options: 'options.html',
+        help: 'help.html',
         index: 'index.html',
     }
 
     if (page in urls) {
         window.location.href = urls[page]
-    } else {
-        window.alert('Em breve! Como a maioria das funções deste site skksksks')
     }
 }
