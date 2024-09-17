@@ -2,6 +2,9 @@
 document.addEventListener('DOMContentLoaded', function () {
     let performance = localStorage.getItem('performanceMode') === 'true'
     let vibration = localStorage.getItem('vibration') === 'true'
+    let autoMode = localStorage.getItem('autoMode') === 'true'
+
+    let count = 0
 
     function vibration_mode() {
         vibration = !vibration
@@ -11,6 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
     function performance_mode() {
         performance = !performance
         localStorage.setItem('performanceMode', performance)
+    }
+
+    function auto_mode() {
+        autoMode = !autoMode
+        localStorage.setItem('autoMode', autoMode)
     }
 
     const vibrationToggle = document.getElementById('vibrationToggle');
@@ -24,13 +32,26 @@ document.addEventListener('DOMContentLoaded', function () {
         performanceToggle.checked = performance
         performanceToggle.addEventListener('click', performance_mode)
     }
+    
+    const autoToggle = document.getElementById('autoToggle')
+    if (autoToggle) {
+        autoToggle.checked = autoMode
+        autoToggle.addEventListener('click', auto_mode)
+    }
+
+    const stopButton = document.getElementById('stop')
+    if (stopButton) {
+        stopButton.addEventListener('click', () => {
+            location.reload()
+        })
+    }
 
     window.start = async function () {
-        clearLog();
-        disable_button();
+        clearLog()
+        disable_button()
         console.time('Tempo total de execução')
         await new Promise(resolve => setTimeout(resolve, 100))
-        loop(performance)
+        loop(performance, autoMode)
 
         if (vibration && "vibrate" in navigator) {
             navigator.vibrate(200)
@@ -39,55 +60,82 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function disable_button(){
         document.getElementById("start").setAttribute('disabled', '')
-        document.getElementById("help").setAttribute('disabled', '')
         document.getElementById("console").style.backgroundColor = ''
         document.getElementById("console").style.animation = ''
     }
 
     function clearLog(){
-        document.getElementById('console').innerHTML = `<span class="auto-type">Loading...</span>`;
+        document.getElementById('console').innerHTML = `<span class="auto-type">Loading...</span>`
     }
 
-    function loop(performanceMode){
-        // Carteira 20
-        // let privateKeyInt = generateRandomNumber(0xc0000,0xe0000)
-        // Carteira 65
-        let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000);
-        // Carteira 66
-        // let privateKeyInt = generateRandomNumber(0x20000000000000000,0x3ffffffffffffffff)
-        const limit = performanceMode ? 50000 : 100000
-        console.log(`Modo performance: ${performance ? 'ativado' : 'desativado'}`)
-        console.log(`Vibração: ${vibration ? 'ativado' : 'desativado'}`)
-        console.log('Primeira chave: ', privateKeyInt.toString(16))
-        for (i = 0; i < limit; i++){
-            const address = generateAddress(privateKeyInt.toString(16))
-            // console.log(privateKeyInt.toString(16), address)
+    async function loop(performanceMode, autoMode){
+        let found_address = false
+
+        while (!found_address) {
             // Carteira 20
-            //if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
+            // let privateKeyInt = generateRandomNumber(0xc0000,0xe0000)
             // Carteira 65
-            if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
+            let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000)
             // Carteira 66
-            //if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
-                log(`Resultado: Deu certo!!<br>`)
-                log(`Chave premiada: ${privateKeyInt.toString(16)}`)
+            // let privateKeyInt = generateRandomNumber(0x20000000000000000,0x3ffffffffffffffff)
+            const limit = performanceMode ? 50000 : 100000
+            console.log(`Modo performance: ${performance ? 'ativado' : 'desativado'}`)
+            console.log(`Modo automático: ${autoMode ? 'ativado' : 'desativado'}`)
+            console.log(`Vibração: ${vibration ? 'ativado' : 'desativado'}`)
+            console.log('Primeira chave: ', privateKeyInt.toString(16))
+
+            for (i = 0; i < limit; i++){
+                const address = generateAddress(privateKeyInt.toString(16))
+                // console.log(privateKeyInt.toString(16), address)
+                // Carteira 20
+                //if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
+                // Carteira 65
+                if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
+                // Carteira 66
+                //if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
+                    log(`Resultado: Deu certo!!<br>`)
+                    log(`Chave premiada: ${privateKeyInt.toString(16)}`)
+                    document.getElementById("console").style.animation = 'scale-in 1s forwards'
+                    document.getElementById("console").style.backgroundColor = '#A7C957'
+                    document.getElementById("start").style.cursor = 'default'
+                    document.getElementById("stop").style.cursor = 'cursor'
+                    document.querySelector("span").style.display = 'none'
+                    console.timeEnd('Tempo total de execução')
+                    found_address = true
+                    break
+                }
+                privateKeyInt++
+
+                if(i % 1000 === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 0))
+                }
+            }
+            count++
+            if (autoMode & !found_address) {
+                const console_element = document.getElementById('console')
+
+                console_element.style.animation = 'wiggle 1s ease-in'
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        console_element.innerHTML = `<span class="auto-type">Contagens de ciclos: ${count}</span>`
+                        console_element.style.animation = ''
+                    })
+                })
+            }
+
+            if (!found_address && !autoMode) {
+                log(`Resultado: Infelizmente não deu certo!<br>`)
+                log(`Chave checada: ${privateKeyInt.toString(16)}`)
                 document.getElementById("console").style.animation = 'scale-in 1s forwards'
-                document.getElementById("console").style.backgroundColor = '#A7C957'
-                document.getElementById("start").style.cursor = 'default'
+                document.getElementById("console").style.backgroundColor = '#E63946'
+                document.getElementById("start").removeAttribute('disabled')
                 document.querySelector("span").style.display = 'none'
                 console.timeEnd('Tempo total de execução')
-                return
+                break
             }
-            privateKeyInt++
         }
-        log(`Resultado: Infelizmente não deu certo!<br>`)
-        log(`Chave checada: ${privateKeyInt.toString(16)}`)
-        document.getElementById("console").style.animation = 'scale-in 1s forwards'
-        document.getElementById("console").style.backgroundColor = '#E63946'
-        document.getElementById("start").removeAttribute('disabled')
-        document.getElementById("help").removeAttribute('disabled')
-        document.querySelector("span").style.display = 'none'
-        console.timeEnd('Tempo total de execução')
     }
+    
 
     function log(message){
         const consoleDiv = document.getElementById('console')

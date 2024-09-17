@@ -218,12 +218,12 @@ details[open] summary{
 }
 
 .button.restart {
-    background-color: #BC4749;
+    background-color: #D75252;
     transition: 0.5s;
 }
 
 .button.help {
-    background-color: #DA5555;
+    background-color: #BC4749;
     transition: 0.5s;
 }
 
@@ -238,12 +238,12 @@ details[open] summary{
 }
 
 .button.restart:hover {
-    background-color: #cc6668;
+    background-color: #ca5c5e;
     transition: 0.5s;
 }
 
 .button.help:hover {
-    background-color: #ca5c5e;
+    background-color: #cc6668;
     transition: 0.5s;
 }
 
