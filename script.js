@@ -3,12 +3,18 @@ document.addEventListener('DOMContentLoaded', function () {
     let performance = localStorage.getItem('performanceMode') === 'true'
     let vibration = localStorage.getItem('vibration') === 'true'
     let autoMode = localStorage.getItem('autoMode') === 'true'
+    let convertMode = localStorage.getItem('convertMode') === 'true'
 
     let count = 0
 
     function vibration_mode() {
         vibration = !vibration
         localStorage.setItem('vibration', vibration)
+    }
+
+    function convert_wif() {
+        convertMode = !convertMode
+        localStorage.setItem('convertMode', convertMode)
     }
 
     function performance_mode() {
@@ -21,10 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('autoMode', autoMode)
     }
 
-    const vibrationToggle = document.getElementById('vibrationToggle');
+    const vibrationToggle = document.getElementById('vibrationToggle')
     if (vibrationToggle) {
-        vibrationToggle.checked = vibration;
-        vibrationToggle.addEventListener('click', vibration_mode);
+        vibrationToggle.checked = vibration
+        vibrationToggle.addEventListener('click', vibration_mode)
+    }
+
+    const wifToggle = document.getElementById('wifToggle')
+    if (wifToggle) {
+        wifToggle.checked = convertMode
+        wifToggle.addEventListener('click', convert_wif)
     }
 
     const performanceToggle = document.getElementById('performanceToggle')
@@ -51,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         disable_button()
         console.time('Tempo total de execução')
         await new Promise(resolve => setTimeout(resolve, 100))
-        loop(performance, autoMode)
+        loop(performance, autoMode, convertMode)
 
         if (vibration && "vibrate" in navigator) {
             navigator.vibrate(200)
@@ -68,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('console').innerHTML = `<span class="auto-type">Loading...</span>`
     }
 
-    async function loop(performanceMode, autoMode){
+    async function loop(performanceMode, autoMode, convertMode){
         let found_address = false
 
         while (!found_address) {
@@ -77,24 +89,34 @@ document.addEventListener('DOMContentLoaded', function () {
             // Carteira 65
             let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000)
             // Carteira 66
-            // let privateKeyInt = generateRandomNumber(0x20000000000000000,0x3ffffffffffffffff)
+            // let privateKeyInt = generateRandomNumber(0x2832ed74f2b5e2000,0x2832ed74f2b5e3000)
+            // Carteira 67
+            //let privateKeyInt = generateRandomNumber(0x40000000000000000,0x7ffffffffffffffff)
             const limit = performanceMode ? 50000 : 100000
             console.log(`Modo performance: ${performance ? 'ativado' : 'desativado'}`)
             console.log(`Modo automático: ${autoMode ? 'ativado' : 'desativado'}`)
+            console.log(`Converter: ${convertMode ? 'ativado' : 'desativado'}`)
             console.log(`Vibração: ${vibration ? 'ativado' : 'desativado'}`)
             console.log('Primeira chave: ', privateKeyInt.toString(16))
 
             for (i = 0; i < limit; i++){
                 const address = generateAddress(privateKeyInt.toString(16))
-                // console.log(privateKeyInt.toString(16), address)
+                const wifkey = generateWIF(privateKeyInt)
+                //console.log(privateKeyInt.toString(16), address) //modo desenvolvedor
                 // Carteira 20
-                //if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
+                // if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
                 // Carteira 65
                 if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
                 // Carteira 66
-                //if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
+                // if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
+                // Carteira 67
+                //if (address == '1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9'){
                     log(`Resultado: Deu certo!!<br>`)
-                    log(`Chave premiada: ${privateKeyInt.toString(16)}`)
+                    if (convertMode) {
+                        log(`Endereço premiado: ${wifkey}`)
+                    } else {
+                        log(`Chave premiada: ${privateKeyInt.toString(16)}`)
+                    }
                     document.getElementById("console").style.animation = 'scale-in 1s forwards'
                     document.getElementById("console").style.backgroundColor = '#A7C957'
                     document.getElementById("start").style.cursor = 'default'
@@ -170,6 +192,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const address = hexToBase58(addressHex);
     
         return address;
+    }
+
+    function generateWIF(privateKeyInt) {
+        const privateKeyHex = privateKeyInt.toString(16).padStart(64, '0')
+        const versionedPrivateKey = '80' + privateKeyHex
+        const compressedPrivateKey = versionedPrivateKey + '01'
+
+        const sha256Hash1 = CryptoJS.SHA256(CryptoJS.enc.Hex.parse(compressedPrivateKey))
+        const sha256Hash2 = CryptoJS.SHA256(sha256Hash1)
+
+        const checksum = sha256Hash2.toString().substring(0, 8)
+        const finalKey = compressedPrivateKey + checksum
+        const WIF = hexToBase58(finalKey)
+
+        return WIF
     }
 
     function hexToBase58(hex) {
