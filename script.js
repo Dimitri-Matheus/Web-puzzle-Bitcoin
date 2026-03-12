@@ -87,12 +87,13 @@ document.addEventListener('DOMContentLoaded', function () {
             // Carteira 20
             // let privateKeyInt = generateRandomNumber(0xc0000,0xe0000)
             // Carteira 65
-            let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000)
+            // let privateKeyInt = generateRandomNumber(0x1a838b13505b20000,0x1a838b13505b30000)
             // Carteira 66
             // let privateKeyInt = generateRandomNumber(0x2832ed74f2b5e2000,0x2832ed74f2b5e3000)
             // Carteira 67
-            //let privateKeyInt = generateRandomNumber(0x40000000000000000,0x7ffffffffffffffff)
+            let privateKeyInt = generateRandomNumber(0x40000000000000000,0x7ffffffffffffffff)
             const limit = performanceMode ? 50000 : 100000
+            const maxLineLength = 20
             console.log(`Modo performance: ${performance ? 'ativado' : 'desativado'}`)
             console.log(`Modo automático: ${autoMode ? 'ativado' : 'desativado'}`)
             console.log(`Converter: ${convertMode ? 'ativado' : 'desativado'}`)
@@ -106,14 +107,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Carteira 20
                 // if (address == '1HsMJxNiV7TLxmoF6uJNkydxPFDog4NQum'){
                 // Carteira 65
-                if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
+                // if (address == '18ZMbwUFLMHoZBbfpCjUJQTCMCbktshgpe'){
                 // Carteira 66
                 // if (address == '13zb1hQbWVsc2S7ZTZnP2G4undNNpdh5so'){
                 // Carteira 67
-                //if (address == '1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9'){
+                if (address == '1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9'){
                     log(`Resultado: Deu certo!!<br>`)
                     if (convertMode) {
-                        log(`Endereço premiado: ${wifkey}`)
+                        let formattedWifKey = wifkey.match(new RegExp(`.{1,${maxLineLength}}`, 'g')).join('<br>');
+                        log(`Endereço premiado: ${formattedWifKey}`);
                     } else {
                         log(`Chave premiada: ${privateKeyInt.toString(16)}`)
                     }
